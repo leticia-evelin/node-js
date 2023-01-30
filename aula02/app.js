@@ -1,5 +1,5 @@
 /****************************************************** 
-* Objeto: Realizar a média escolar de 4 notas doa alunos.
+* Objetivo: Realizar a média escolar de 4 notas doa alunos.
 * Data: 27/01/2023
 * Autor: Letícia Evelin
 * Versão: 1.0
@@ -79,6 +79,13 @@ entradaDeDados.question('Digite o nome do aluno: \n', function (nome){
                          * OU       || (pipe)  OR
                          * E        &&         AND
                          * Negação  !          NOT
+                         * 
+                         * Ordem de execução dos operadores logicos
+                         * 0 - ()
+                         * 1 - Negação
+                         * 2 - E
+                         * 3 - OU
+                         * 
                          */
 
                         // Validação para tratar entradas vazias
@@ -87,27 +94,30 @@ entradaDeDados.question('Digite o nome do aluno: \n', function (nome){
                         if(primeiraNota == ''  || segundaNota == ''|| terceiraNota == '' || 
                             quartaNota == '' || quintaNota == ''){
                             console.log('ERRO: É necessário digitar algum valor nas entradas');
+                        // Validação para entrada de dados não numericos
                         }else if(isNaN(primeiraNota) || isNaN(segundaNota) || isNaN(terceiraNota) ||
                           isNaN(quartaNota) || isNaN(quintaNota))
                         {
                             console.log('ERRO: É necessário todos as notas digitadas sejam números.')
 
-                        }else if(primeiraNota > 10 || segundaNota > 10 || terceiraNota > 10 ||
-                            quartaNota  > 10 || quintaNota > 10 )
-                            {
-                                console.log('ERRO: É necessário somente notas de 0 a 10')
-                            }
-                        
-                        else{
-                            media = (Number(primeiraNota) + Number (segundaNota) + Number (terceiraNota) + 
-                            Number (quartaNota) + Number (quintaNota))/5;
-                            console.log(media);
+                        //Validação de entradas de valores entre 0 e 10
 
-                            if(media <7){
-                                console.log('Reprovado :(')
-                            }else if(media >=7){
-                                console.log('Aprovado :)')
+                        // com & : if(primeiraNota >= 0 && primeiraNota <= 10)
+                        }else if(primeiraNota < 0 || primeiraNota > 10 || segundaNota < 0 || segundaNota > 10 || terceiraNota <0 || terceiraNota > 10 || quartaNota < 0 || quartaNota > 10 || quintaNota < 0 || quintaNota> 10 )
+                        {
+                            console.log('ERRO: O sistema aceita somente números de 0 até 10')
+                        }
+                            // Média
+                        else{
+                            media = (Number(primeiraNota) + Number (segundaNota) + Number (terceiraNota) + Number (quartaNota) + Number (quintaNota))/5;
+                            
+                            if(media >= 7){
+                                console.log('Status do Aluno: Aprovado :)')
+                            }else{
+                                console.log('Status do Aluno: Reprovado :(')
                             }
+                            
+                            console.log('Média final: ' + media.toFixed(1));
                         }
                         
                        
