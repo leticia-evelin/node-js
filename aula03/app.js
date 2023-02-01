@@ -1,5 +1,5 @@
 /****************************************************** 
-* Objetivo: Exercício 1 - operações matemática
+* Objetivo: Exercício 1 - operações matemáticas
 * Data: 30/01/2023
 * Autor: Letícia Evelin
 * Versão: 1.0
@@ -25,18 +25,14 @@ entradaDeDados.question('Por favor, escolha a operação do seu cálculo: \n (+)
     let operacaoCalculo = operacao; 
 
     entradaDeDados.question('Digite o primeiro número: \n', function(valor1){
-        let primeiroValor = parseFloat(valor1.replace(',' , '.'));
-        console.log(primeiroValor);
-
+        let primeiroValor = parseFloat(valor1.replace("," , "."));
+       
         entradaDeDados.question('Digite o segundo número: \n', function(valor2){
-            let segundoValor = parseFloat(valor2.replace(',' , '.'));
-            console.log(segundoValor);
-
+            let segundoValor = parseFloat(valor2.replace("," , "."));
+           
             console.log(operacaoCalculo, valor1, valor2);
     
             let resultado = 0;
-
-
 
             // Validações
              if(valor1 == '' || valor2 == ''){
@@ -53,20 +49,20 @@ entradaDeDados.question('Por favor, escolha a operação do seu cálculo: \n (+)
             
             // Cálculo
             if(operacao == '+'){
-                resultado = (Number (valor1) + Number (valor2));
-                console.log('Resultado de ' + (valor1) + (operacao) + (valor2) + ' = ' + resultado);
+                resultado = ((primeiroValor) + (segundoValor));
+                console.log('Resultado de ' + (primeiroValor) + (operacao) + (segundoValor) + ' = ' + resultado);
 
             }else if(operacao == '-'){
-                resultado = (Number (valor1) - Number (valor2));
-                console.log('Resultado de ' + (valor1) + (operacao) + (valor2) + ' = ' + resultado);
+                resultado = ((primeiroValor) - (segundoValor));
+                console.log('Resultado de ' + (primeiroValor) + (operacao) + (segundoValor) + ' = ' + resultado);
 
             }else if(operacao == '*'){
-                resultado = (Number (valor1) * Number (valor2));
-                console.log('Resultado de ' + (valor1) + (operacao) + (valor2) + ' = ' + resultado);
+                resultado = ((primeiroValor) * (segundoValor));
+                console.log('Resultado de ' + (primeiroValor) + (operacao) + (segundoValor) + ' = ' + resultado);
 
             }else if(operacao == '/'){
-                resultado = (Number (valor1) / Number (valor2));
-                console.log('Resultado de ' + (valor1) + (operacao) + (valor2) + ' = ' + resultado);
+                resultado = ((primeiroValor) / (segundoValor));
+                console.log('Resultado de ' + (primeiroValor) + (operacao) + (segundoValor) + ' = ' + resultado);
             }
         });
     });
