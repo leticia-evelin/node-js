@@ -35,7 +35,7 @@ entradaDeDados.question('Por favor, escolha a operação do seu cálculo: \n (+)
             let resultado = 0;
 
             // Validações
-             if(valor1 == '' || valor2 == ''){
+             if(valor1 == '' || valor2 == '' || operacao){
                 console.log('ERRO: É necessário digitar algum valor nas entradas');
 
                 // Validação para entrada de dados não numericos
