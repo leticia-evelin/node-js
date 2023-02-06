@@ -5,6 +5,7 @@
  * Versão: 1.0
  ************************************************************************************/
 
+// import da biblioteca da calculadora (criado por nós)
 var matematica = require('./modulo/calculadora.js');
 
 //Import da biblioteca para entrada de dados
@@ -50,9 +51,17 @@ entradaDados.question('Valor1: \n', function(numero1){
 
             }else{
 
+                // Chama a função para calcular, encaminhando os dados para o cálculo
                resultado = matematica.calcular(valor1, valor2, operacao);
-               console.log(resultado);
-               entradaDados.close();
+
+               //Valida se o retorno da função é verdadeiro ou false (se for falso, encerra o programa)
+               //para o resultado ser 0 numérico
+               if(resultado == false && typeof(resultado) == 'boolean')
+               //if(resultado === false)
+                  entradaDados.close();
+                else
+                  console.log(resultado);
+               
             }    
         });
     });
