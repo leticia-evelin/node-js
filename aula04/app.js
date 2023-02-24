@@ -20,7 +20,7 @@ var entradaDados = readline.createInterface({
 //Entrada de dados Valor1
 //replace permite trocar o conteúdo da string por outro
 entradaDados.question('Valor1: \n', function(numero1){
-    let valor1 = numero1.replace(',' , '.');
+    let valor1 = numero1.replace(',' , '.');    
 
 //Entrada de dados Valor2
     entradaDados.question('Valor2: \n', function(numero2){
