@@ -22511,7 +22511,7 @@ const getListaDeEstados = function(){
    listSiglasJSON.estados.forEach(function(uf){
    listSiglasJSON.push(sigla);
    console.log(listSiglasJSON);
-  
+   
   });
    //estadosCidades.estados.forEach(function(sigla){
      //console.log(sigla);
