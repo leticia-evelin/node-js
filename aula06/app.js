@@ -15,7 +15,6 @@ const listaProdutosJSON = {};
 
 //Exemplo de um JSON com estrutura de array
 /*
-
     produtos = {
                 [
                     {nome: "Teclado", cor : "Preto", quantidade : 50},
@@ -166,7 +165,7 @@ const listagemProdutos = function(){
     listProdutos[2].cores = listCores;
 
 
-    //Adiciona uma chave produtos e coloca toda a estruturra dos produtos dentro dela
+    //Adiciona uma chave produtos e coloca toda a estrutura dos produtos dentro dela
     listProdutosJSON.produtos = listProdutos;
     //console.log(listProdutosJSON);
 
@@ -214,5 +213,3 @@ const listagemProdutos = function(){
 listagemProdutos();
 //console.log(removerElemento(listaNomes,'Luiz'));
 //console.log(listaProdutos);
-
-
