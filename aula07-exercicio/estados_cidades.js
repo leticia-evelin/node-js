@@ -22501,30 +22501,32 @@ var estadosCidades = {
     ]
 };
 
+const siglaEstado = [];
+const listSiglasJSON = {};
+
 
 const getListaDeEstados = function(){
-  let status;
-  let cont = 0;
-  const listSiglasJSON = {};
-  //let qtdeItens = estadosCidades.length;
-
-   listSiglasJSON.estados.forEach(function(uf){
-   listSiglasJSON.push(sigla);
-   console.log(listSiglasJSON);
+ estadosCidades.estados.forEach(function(dadosUf){
+   listSiglasJSON.sigla = siglaEstado;
+   siglaEstado.push(dadosUf.sigla);
+ 
+ });
    
-  });
-   //estadosCidades.estados.forEach(function(sigla){
-     //console.log(sigla);
-   //});
-   
-   //criar um array e ir adicionando com o push
+   listSiglasJSON = {uf : siglaEstado, quantidade : siglaEstado.length}
 
+   return listSiglasJSON;
+   
 }
 
- getListaDeEstados();
+const getDadosEstado = function(sigla){
+   let status = true;
 
-const getDadosEstado = function(siglaEstado){
+   estadosCidades.estados.forEach(function(dados){
 
+     
+   })
+
+   return listSiglasJSON;
 }
 
 const getCapitalEstado = function(siglaEstado){
