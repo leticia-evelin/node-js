@@ -22506,24 +22506,27 @@ const listSiglasJSON = {};
 
 
 const getListaDeEstados = function(){
- estadosCidades.estados.forEach(function(dadosUf){
-   listSiglasJSON.sigla = siglaEstado;
-   siglaEstado.push(dadosUf.sigla);
- 
- });
+
+   estadosCidades.estados.forEach(function(dadosUf){
+   siglaEstado.push(dadosUf.sigla)
+
+   });
    
-   listSiglasJSON = {uf : siglaEstado, quantidade : siglaEstado.length}
+   listSiglasJSON.uf = siglaEstado;
+   listSiglasJSON.quantidade = siglaEstado.length;
 
    return listSiglasJSON;
    
 }
+
+console.log(getListaDeEstados());
+
 
 const getDadosEstado = function(sigla){
    let status = true;
 
    estadosCidades.estados.forEach(function(dados){
 
-     
    })
 
    return listSiglasJSON;
