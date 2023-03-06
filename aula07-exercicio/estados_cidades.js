@@ -22519,21 +22519,28 @@ const getListaDeEstados = function(){
    
 }
 
-console.log(getListaDeEstados());
+//console.log(getListaDeEstados());
 
 
-const getDadosEstado = function(sigla){
-   let status = true;
+const getDadosEstado = function(ufEstado){
+   let status = false;
 
-   estadosCidades.estados.forEach(function(dados){
-
-   })
+   estadosCidades.estados.forEach(function(dadosEstado){
+      if(dadosEstado.sigla == ufEstado){
+         listSiglasJSON.uf = dadosEstado.sigla;
+         listSiglasJSON.descricao = dadosEstado.nome;
+         listSiglasJSON.capital = dadosEstado.capital;
+         listSiglasJSON.regiao = dadosEstado.regiao;
+      }
+      return status;
+   });
 
    return listSiglasJSON;
 }
 
-const getCapitalEstado = function(siglaEstado){
+//console.log(getDadosEstado('BA'));
 
+const getCapitalEstado = function(ufEstado){
 }
 
 const getEstadosRegiao = function(regiao){
