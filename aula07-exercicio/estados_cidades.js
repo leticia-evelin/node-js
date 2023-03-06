@@ -22521,7 +22521,6 @@ const getListaDeEstados = function(){
 
 //console.log(getListaDeEstados());
 
-
 const getDadosEstado = function(ufEstado){
    let status = false;
 
@@ -22541,11 +22540,42 @@ const getDadosEstado = function(ufEstado){
 //console.log(getDadosEstado('BA'));
 
 const getCapitalEstado = function(ufEstado){
-}
+   let status = false;
 
-const getEstadosRegiao = function(regiao){
+   estadosCidades.estados.forEach(function(dadosEstado){
+      if(dadosEstado.sigla == ufEstado){
+         listSiglasJSON.uf = dadosEstado.sigla;
+         listSiglasJSON.descricao = dadosEstado.nome;
+         listSiglasJSON.capital = dadosEstado.capital;
+      }
+      return status;
+   });
 
+   return listSiglasJSON;
 }
+//console.log(getCapitalEstado('PB'))
+
+const getEstadosRegiao = function(dadosRegiao){
+   let estadoR = [];
+   //let status = false;
+   let listSiglasJSON = {};
+
+   estadosCidades.estados.forEach(dadosEstado => {
+
+      if(dadosRegiao == dadosEstado){
+         estadoR.push( 
+            {uf: dadosEstado.sigla, 
+            descricao: dadosEstado.nome});
+      }
+      listSiglasJSON.dadosEstado = estadoR;
+   });
+
+   //listSiglasJSON = { regiao : dadosRegiao, estados : estadoR  }
+   //listSiglasJSON.regiao = dadosRegiao;
+   
+   return (listSiglasJSON.dadosEstado).length != 0 ? listSiglasJSON : false;
+}
+console.log(getEstadosRegiao('Sudeste'))
 
 const getCapitalPais = function(){
 
