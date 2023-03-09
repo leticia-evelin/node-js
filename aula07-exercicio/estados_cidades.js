@@ -22556,26 +22556,23 @@ const getCapitalEstado = function(ufEstado){
 //console.log(getCapitalEstado('PB'))
 
 const getEstadosRegiao = function(dadosRegiao){
-   let estadoR = [];
-   //let status = false;
-   let listSiglasJSON = {};
 
-   estadosCidades.estados.forEach(dadosEstado => {
-
-      if(dadosRegiao == dadosEstado){
-         estadoR.push( 
-            {uf: dadosEstado.sigla, 
-            descricao: dadosEstado.nome});
-      }
-      listSiglasJSON.dadosEstado = estadoR;
-   });
-
-   //listSiglasJSON = { regiao : dadosRegiao, estados : estadoR  }
-   //listSiglasJSON.regiao = dadosRegiao;
+   let listJSON = {};
+   let estadoRegiao = {};
+   let estadosArray = [];
+ 
+   for (let i = 0; i < estadosCidades.estados.length; i++) {
+     let estado = estadosCidades.estados[i];
+     if (dadosRegiao == estado.regiao) {
+       estadoRegiao = { uf: estado.sigla, descricao: estado.nome };
+       estadosArray.push(estadoRegiao);
+     }
+   }
    
-   return (listSiglasJSON.dadosEstado).length != 0 ? listSiglasJSON : false;
+   listJSON = { regiao: dadosRegiao, estados: estadosArray };
+   return listJSON;
 }
-console.log(getEstadosRegiao('Sudeste'))
+//console.log(getEstadosRegiao('Norte'))
 
 const getCapitalPais = function(){
 
