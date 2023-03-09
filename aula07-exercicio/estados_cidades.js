@@ -22561,13 +22561,12 @@ const getEstadosRegiao = function(dadosRegiao){
    let estadoRegiao = {};
    let estadosArray = [];
  
-   for (let i = 0; i < estadosCidades.estados.length; i++) {
-     let estado = estadosCidades.estados[i];
+   estadosCidades.estados.forEach(function(estado){
      if (dadosRegiao == estado.regiao) {
        estadoRegiao = { uf: estado.sigla, descricao: estado.nome };
        estadosArray.push(estadoRegiao);
      }
-   }
+   });
    
    listJSON = { regiao: dadosRegiao, estados: estadosArray };
    return listJSON;
@@ -22598,7 +22597,7 @@ const getCapitalPais = function(){
    });
    return listJSON;
 }
-console.log(getCapitalPais());
+//console.log(getCapitalPais());
 
 const getCidades = function(sigla){
 
