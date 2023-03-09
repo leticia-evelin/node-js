@@ -22576,8 +22576,30 @@ const getEstadosRegiao = function(dadosRegiao){
 
 const getCapitalPais = function(){
 
-}
+   let listJSON = {};
+   let capitalPais = [];
 
+   for (let i = 0; i < estadosCidades.estados.length; i++) {
+      let estado = estadosCidades.estados[i];
+
+      if(estado.capital_pais != undefined) {
+         let dadosCapital = {
+            capital_atual: estado.capital_pais.capital,
+            uf: estado.sigla,
+            descricao: estado.nome,
+            capital: estado.capital,
+            regiao: estado.regiao,
+            capital_pais_ano_inicio: estado.capital_pais.ano_inicio,
+            capital_pais_ano_termino: estado.capital_pais.ano_fim,
+         };
+
+         capitalPais.push(dadosCapital);
+         listJSON.capitais = capitalPais;
+      }
+   }
+   return listJSON;
+}
+console.log(getCapitalPais());
 const getCidades = function(){
 
 }
