@@ -22519,7 +22519,7 @@ const getListaDeEstados = function(){
    
 }
 
-//console.log(getListaDeEstados());
+
 
 const getDadosEstado = function(ufEstado){
    let status = false;
@@ -22619,3 +22619,12 @@ const getCidades = function(sigla){
    return listJSON;
 }
 //console.log(getCidades('PA'));
+
+module.exports = {
+   getListaDeEstados, 
+   getDadosEstado, 
+   getCapitalEstado, 
+   getEstadosRegiao, 
+   getCapitalPais, 
+   getCidades
+}
