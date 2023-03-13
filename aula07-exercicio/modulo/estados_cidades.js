@@ -22530,14 +22530,16 @@ const getDadosEstado = function(ufEstado){
          listSiglasJSON.descricao = dadosEstado.nome;
          listSiglasJSON.capital = dadosEstado.capital;
          listSiglasJSON.regiao = dadosEstado.regiao;
+      } else {
+         return status;
       }
-      return status;
    });
 
    return listSiglasJSON;
+  
 }
 
-//console.log(getDadosEstado('BA'));
+//console.log(getDadosEstado('banana'));
 
 const getCapitalEstado = function(ufEstado){
    let status = false;
