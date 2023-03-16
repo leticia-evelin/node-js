@@ -50,7 +50,7 @@ app.use((request, response, next) => {
 
 //endPoints - pontos de parada
 
-//endPoint para Listar os Estados
+//endPoint para LISTAR OS ESTADOS
 app.get('/estados', cors(), async function(request, response, next){
 
     //Chama a função que retorna os estados
@@ -67,7 +67,7 @@ app.get('/estados', cors(), async function(request, response, next){
 
 });
 
-//endPoint: lista as características do estado pela sigla
+//endPoint: LISTA AS CARACTERISTICAS DO ESTADO PELA SIGLA 
 app.get('/estado/sigla/:uf', cors(), async function(request, response, next){
 // :uf é uma variável que será utilizada para passagens de valores na URL da requisição
 
@@ -96,7 +96,7 @@ app.get('/estado/sigla/:uf', cors(), async function(request, response, next){
     response.json(dadosEstado);
 }); 
 
-//endPoint: lista as capital do estado
+//endPoint: LISTA A CAPITAL DO ESTADO
 app.get('/capital/sigla/:uf', cors(), async function(request, response, next){
 
     let siglaEstado = request.params.uf;
@@ -121,7 +121,7 @@ app.get('/capital/sigla/:uf', cors(), async function(request, response, next){
 
 });
 
-//endPoint: lista os estados de acordo com a região
+//endPoint: LISTA OS ESTADOS DE ACORDO COM A REGIÃO 
 app.get('/regiao/nome/:regiao', cors(), async function(request, response, next){
 
     let nomeRegiao = request.params.uf;
@@ -144,6 +144,11 @@ app.get('/regiao/nome/:regiao', cors(), async function(request, response, next){
     response.status(statusCode);
     response.json(dadosEstado);
 });
+
+// endPoint: LISTA SOBRE A CAPITAL DO PAÍS
+
+
+// endPoint: LISTA AS CIDADES DE CADA ESTADO PELA SIGLA
 
 //Permite carregar os endPoints criados e aguardar as requisições 
 //pelo protocolo htp na porta 8080
