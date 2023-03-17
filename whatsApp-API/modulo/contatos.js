@@ -1,3 +1,13 @@
+/********************************************************
+ * "Mini" Projeto Integrado!
+ * 
+ * Objetivo: Criar uma API para o projeto do Whatsapp que 
+   a equipe de Front-End já disponibilizou
+ * Data: 17/03/2023
+ * Autor: Letícia Evelin
+ * Versão: 1.0
+ ********************************************************/
+
 export const contatos = { "whats-users" :
                           [
                             {  
@@ -568,3 +578,5 @@ export const contatos = { "whats-users" :
                             }
                           ]
                         }
+
+// 8 usuários = filtro para selecionar de quem será o wpp

@@ -228,6 +228,7 @@ app.get('/v2/senai/cidades', cors(), async function(request, response, next){
 
 //Permite carregar os endPoints criados e aguardar as requisições 
 //pelo protocolo htp na porta 8080
+
 app.listen(8080, function(){
     console.log('Servidor aguardando requisições na porta 8080.')
 });

@@ -10,14 +10,12 @@
 
 
 //Importe das dependências para criar a API
-//responsável pelas requisições
+
 const express = require('express');
-//responsável pelas requisições das permissões
 const cors = require('cors');
-// responsável pela manipulação da requisição
 const bodyParser = require('body-parser');
 
- //Importe do arquivo de funções para listar os estados e as cidades
+ //Importe do arquivo de funções para listar os contatos, conversas
 
 
 //Cria umm objeto com as informações da classe express
