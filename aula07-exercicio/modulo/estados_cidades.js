@@ -22519,8 +22519,6 @@ const getListaDeEstados = function(){
    
 }
 
-
-
 const getDadosEstado = function(ufEstado){
    let status = false;
    let estadoUf = ufEstado.toUpperCase()
@@ -22557,27 +22555,32 @@ const getCapitalEstado = function(ufEstado){
 
    return listSiglasJSON;
 }
-// console.log(getCapitalEstado('PB'));
+//console.log(getCapitalEstado('PB'));
 
 const getEstadosRegiao = function(dadosRegiao){
 
+   let status = false;
    let listJSON = {};
    let estadoRegiao = {};
    let estadosArray = [];
 
-   let paisRegiao = dadosRegiao[0].toUpperCase() + dadosRegiao.substring(1).toLowerCase();
+   let paisRegiao = dadosRegiao;
+
+   //+ dadosRegiao.substring(1).toLowerCase()
  
    estadosCidades.estados.forEach(function(estado){
      if (paisRegiao == estado.regiao) {
        estadoRegiao = { uf: estado.sigla, descricao: estado.nome };
        estadosArray.push(estadoRegiao);
+     } else {
+      return status;
      }
    });
    
    listJSON = { regiao: dadosRegiao, estados: estadosArray };
    return listJSON;
 }
-// console.log(getEstadosRegiao('norte'));
+console.log(getEstadosRegiao('regiao'));
 
 const getCapitalPais = function(){
 
@@ -22624,7 +22627,7 @@ const getCidades = function(sigla){
 
    return listJSON;
 }
-console.log(getCidades('sp'));
+//console.log(getCidades('sp'));
 
 module.exports = {
    getListaDeEstados, 

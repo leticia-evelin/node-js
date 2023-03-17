@@ -124,19 +124,19 @@ app.get('/capital/sigla/:uf', cors(), async function(request, response, next){
 //endPoint: LISTA OS ESTADOS DE ACORDO COM A REGIÃO 
 app.get('/regiao/nome/:regiao', cors(), async function(request, response, next){
 
-    let nomeRegiao = request.params.uf;
+    let nomeRegiao = request.params.regiao;
     let statusCode;
     let dadosEstado = {};
 
-    if(nomeRegiao == '' || nomeRegiao == undefined || !isNaN(nomeRegiao)){
+    if(nomeRegiao == '' || nomeRegiao == undefined || !isNaN(nomeRegiao) || nomeRegiao .length > 13){
         statusCode = 400;
-        dadosEstado.message = "Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres (2 dígitos)";
+        dadosEstado.message = "Não é possível processar a requisição, por favor confire o nome da região digitada";
     } else {
         let regiao = estadosCidades.getEstadosRegiao(nomeRegiao);
         //Valida se houve o retorno válido da função
         if(regiao){
             statusCode = 200; //estado encontrado
-            dadosEstado = capital;
+            dadosEstado = regiao;
         } else {
             statusCode = 404; //estado não encontrado
         }
@@ -147,8 +147,45 @@ app.get('/regiao/nome/:regiao', cors(), async function(request, response, next){
 
 // endPoint: LISTA SOBRE A CAPITAL DO PAÍS
 
+app.get('/capital', cors(), async function(request, response, next){
+
+    // //Chama a função que retorna os estados
+    let listaCapitalPais = estadosCidades.getCapitalPais();
+
+    // //Tratamento para validar se a função realizou o processamento
+     if(listaCapitalPais){
+    //     //Retorna o JSON e o Status code 
+        response.json(listaCapitalPais);
+        response.status(200);
+    // } else {
+        response.status(500);
+    }
+});    
 
 // endPoint: LISTA AS CIDADES DE CADA ESTADO PELA SIGLA
+app.get('/cidades/sigla/:uf', cors(), async function(request, response, next){
+
+    let siglaEstado = request.params.uf;
+    let statusCode;
+    let dadosEstado = {};
+
+    if(siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)){
+        statusCode = 400;
+        dadosEstado.message = "Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres (2 dígitos)";
+    } else {
+        let cidades = estadosCidades.getCidades(siglaEstado);
+        //Valida se houve o retorno válido da função
+        if(cidades){
+            statusCode = 200; //estado encontrado
+            dadosEstado = cidades;
+        } else {
+            statusCode = 404; //estado não encontrado
+        }
+    }
+    response.status(statusCode);
+    response.json(dadosEstado);
+
+});
 
 //Permite carregar os endPoints criados e aguardar as requisições 
 //pelo protocolo htp na porta 8080
