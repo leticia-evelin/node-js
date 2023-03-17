@@ -22580,7 +22580,7 @@ const getEstadosRegiao = function(dadosRegiao){
    listJSON = { regiao: dadosRegiao, estados: estadosArray };
    return listJSON;
 }
-console.log(getEstadosRegiao('regiao'));
+//console.log(getEstadosRegiao('regiao'));
 
 const getCapitalPais = function(){
 

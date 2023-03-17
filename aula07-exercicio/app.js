@@ -51,7 +51,7 @@ app.use((request, response, next) => {
 //endPoints - pontos de parada
 
 //endPoint para LISTAR OS ESTADOS
-app.get('/estados', cors(), async function(request, response, next){
+app.get('/v1/senai/estados', cors(), async function(request, response, next){
 
     //Chama a função que retorna os estados
     let listaDeEstados = estadosCidades.getListaDeEstados();
@@ -68,7 +68,7 @@ app.get('/estados', cors(), async function(request, response, next){
 });
 
 //endPoint: LISTA AS CARACTERISTICAS DO ESTADO PELA SIGLA 
-app.get('/estado/sigla/:uf', cors(), async function(request, response, next){
+app.get('/v1/senai/estado/sigla/:uf', cors(), async function(request, response, next){
 // :uf é uma variável que será utilizada para passagens de valores na URL da requisição
 
 
@@ -97,7 +97,7 @@ app.get('/estado/sigla/:uf', cors(), async function(request, response, next){
 }); 
 
 //endPoint: LISTA A CAPITAL DO ESTADO
-app.get('/capital/sigla/:uf', cors(), async function(request, response, next){
+app.get('/v1/senai/capital/sigla/:uf', cors(), async function(request, response, next){
 
     let siglaEstado = request.params.uf;
     let statusCode;
@@ -122,7 +122,7 @@ app.get('/capital/sigla/:uf', cors(), async function(request, response, next){
 });
 
 //endPoint: LISTA OS ESTADOS DE ACORDO COM A REGIÃO 
-app.get('/regiao/nome/:regiao', cors(), async function(request, response, next){
+app.get('/v1/senai/regiao/nome/:regiao', cors(), async function(request, response, next){
 
     let nomeRegiao = request.params.regiao;
     let statusCode;
@@ -147,7 +147,7 @@ app.get('/regiao/nome/:regiao', cors(), async function(request, response, next){
 
 // endPoint: LISTA SOBRE A CAPITAL DO PAÍS
 
-app.get('/capital', cors(), async function(request, response, next){
+app.get('/v1/senai/capital', cors(), async function(request, response, next){
 
     // //Chama a função que retorna os estados
     let listaCapitalPais = estadosCidades.getCapitalPais();
@@ -163,29 +163,68 @@ app.get('/capital', cors(), async function(request, response, next){
 });    
 
 // endPoint: LISTA AS CIDADES DE CADA ESTADO PELA SIGLA
-app.get('/cidades/sigla/:uf', cors(), async function(request, response, next){
+//app.get('/v1/senai/cidades/sigla/:uf', cors(), async function(request, response, next){
 
-    let siglaEstado = request.params.uf;
+//     let siglaEstado = request.params.uf;
+//     let statusCode;
+//     let dadosEstado = {};
+
+//     if(siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)){
+//         statusCode = 400;
+//         dadosEstado.message = "Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres (2 dígitos)";
+//     } else {
+//         let cidades = estadosCidades.getCidades(siglaEstado);
+//         //Valida se houve o retorno válido da função
+//         if(cidades){
+//             statusCode = 200; //estado encontrado
+//             dadosEstado = cidades;
+//         } else {
+//             statusCode = 404; //estado não encontrado
+//         }
+//     }
+//     response.status(statusCode);
+//     response.json(dadosEstado);
+
+// });
+
+
+
+
+
+
+
+// endPoint Versão 2: Lista de cidades filtrada pela sigla do estado - Prof.Marcel
+app.get('/v2/senai/cidades', cors(), async function(request, response, next){
+
+    //Recebe o valor da variável que será enviada por QueryString
+        //Ex: www.oul.com.br?uf=sp&cep=08541233&nome=jose
+
+        //Usamos a query para receber diversas variáveis para realizar filtros
+        //Usamos o params para receber ID (PK), geralmente para fazer PUT, DELETE ou GET
+   
+    let siglaEstado = request.query.uf;
     let statusCode;
-    let dadosEstado = {};
+    let dadosCidade = {};
 
+    //Tratamento para validar os valores encaminhados no parâmetro
     if(siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)){
         statusCode = 400;
-        dadosEstado.message = "Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres (2 dígitos)";
+        dadosCidade.message = "Não é possível processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caracteres (2 dígitos)";
     } else {
+        //Chama a função que filtra o estado pela sigla
         let cidades = estadosCidades.getCidades(siglaEstado);
         //Valida se houve o retorno válido da função
         if(cidades){
             statusCode = 200; //estado encontrado
-            dadosEstado = cidades;
+            dadosCidade = cidades;
         } else {
             statusCode = 404; //estado não encontrado
         }
     }
     response.status(statusCode);
-    response.json(dadosEstado);
+    response.json(dadosCidade);
+}); 
 
-});
 
 //Permite carregar os endPoints criados e aguardar as requisições 
 //pelo protocolo htp na porta 8080
