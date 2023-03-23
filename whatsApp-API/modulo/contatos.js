@@ -8,7 +8,7 @@
  * Versão: 1.0
  ********************************************************/
 
-export const contatos = { "whats-users" :
+const contatos = { "whats-users" :
                           [
                             {  
                               "id" : 1,    
@@ -580,3 +580,74 @@ export const contatos = { "whats-users" :
                         }
 
 // 8 usuários = filtro para selecionar de quem será o wpp
+
+
+const getNomeUsuario = function(){
+
+  let arrayContatos = [];
+  let listContatosJSON = {};
+
+  contatos['whats-users'].forEach(function(contatos){
+    const nomesUsuario = {}
+    nomesUsuario.nome = contatos.account;
+    nomesUsuario.nickname = contatos.nickname;
+    arrayContatos.push(nomesUsuario)
+  });
+  listContatosJSON.usuario = arrayContatos;
+  return listContatosJSON
+}
+
+// const getConversasUsers = function(user){
+//   let usuario = [];
+
+//   for (let i = 0; i < contatos["whats-users"].length; i++){
+//     const conversa = contatos["whats-users"][i];
+
+//     // console.log(conversa)
+
+//       if(conversa.account == user){
+//         usuario.push(conversa);
+//         //console.log(usuario)
+
+//         for(let b = 0; b < conversa.contacts.lenght; b++){
+//           const contact = conversa.contacts[b];
+//           console.log(contact);
+//         }
+//       }
+      
+//     }
+//   }
+//   // return null;
+
+// //}
+// console.log(getConversasUsers("Ricardo da Silva"))
+// getConversasUsers("Ricardo da Silva")
+
+const filtroAcount = function(contato) {
+  const dono = []
+
+  for (let i = 0; i < contatos["whats-users"].length; i++) {
+      const obj = contatos["whats-users"][i];
+
+
+      if (obj.account == contato) {
+          dono.push(obj)
+              //console.log(dono);
+              //return dono;
+
+          for (let j = 0; j < obj.contacts.length; j++) {
+              const contact = obj.contacts[j];
+              // console.log(contact)
+              return contact
+          }
+      }
+
+  }
+
+
+  //console.log(`Não foi encontrado nenhum contato com a conta` + contato);
+  return null;
+
+}
+console.log(filtroAcount("Ricardo da Silva"))
+// filtroAcount("Ricardo da Silva")
