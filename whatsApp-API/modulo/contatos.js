@@ -579,7 +579,7 @@ const contatos = { "whats-users" :
                           ]
                         }
 
-// 8 usuários = filtro para selecionar de quem será o wpp
+
 
 
 const getNomeUsuario = function(){
@@ -597,57 +597,75 @@ const getNomeUsuario = function(){
   return listContatosJSON
 }
 
-// const getConversasUsers = function(user){
-//   let usuario = [];
-
-//   for (let i = 0; i < contatos["whats-users"].length; i++){
-//     const conversa = contatos["whats-users"][i];
-
-//     // console.log(conversa)
-
-//       if(conversa.account == user){
-//         usuario.push(conversa);
-//         //console.log(usuario)
-
-//         for(let b = 0; b < conversa.contacts.lenght; b++){
-//           const contact = conversa.contacts[b];
-//           console.log(contact);
-//         }
-//       }
-      
-//     }
-//   }
-//   // return null;
-
-// //}
-// console.log(getConversasUsers("Ricardo da Silva"))
-// getConversasUsers("Ricardo da Silva")
-
-const filtroAcount = function(contato) {
+const getFiltroAccount = function(contato) {
   const dono = []
 
-  for (let i = 0; i < contatos["whats-users"].length; i++) {
+    for (let i = 0; i < contatos["whats-users"].length; i++) {
       const obj = contatos["whats-users"][i];
 
-
       if (obj.account == contato) {
-          dono.push(obj)
-              //console.log(dono);
-              //return dono;
+        dono.push(obj)
+          //console.log(dono);
+          //return dono;
 
           for (let j = 0; j < obj.contacts.length; j++) {
-              const contact = obj.contacts[j];
-              // console.log(contact)
-              return contact
+            const contact = obj.contacts[j];
+            // console.log(contact)
+            return contact
           }
-      }
+       }
+    }
 
-  }
 
-
-  //console.log(`Não foi encontrado nenhum contato com a conta` + contato);
-  return null;
+   return null;
 
 }
-console.log(filtroAcount("Ricardo da Silva"))
-// filtroAcount("Ricardo da Silva")
+//console.log(getFiltroAccount("Bernardo Xavier Ribeiro"))
+
+const getContatos = function($nome) {
+  const usuarioPrincipal = $nome;
+  const listContatosJSON = {};
+  const contatosDoUsuario = [];
+  let status = false;
+
+  contatos["whats-users"].forEach(function (usuario) {
+    if (usuario.account == usuarioPrincipal) {
+        status = true
+        usuario.contacts.forEach(function (contatos) {
+            const contatosJSON = {
+                name: contatos.name,
+                description: contatos.description,
+                image: contatos.image,
+            }
+            const mensagens = []
+            contatos.messages.forEach(function (conteudoMensagens) {
+                const conversas = {
+                    sender: conteudoMensagens.sender,
+                    content: conteudoMensagens.content,
+                    timestamp: conteudoMensagens.time
+                }
+                mensagens.push(conversas)
+            });
+            contatosJSON.messages = mensagens
+            contatosDoUsuario.push(contatosJSON)
+        });
+    }
+});
+
+listContatosJSON.contatos = contatosDoUsuario
+
+  if(status){
+    return listContatosJSON
+    //return contatosDoUsuario
+  }else{
+    return status
+  }
+}
+
+//console.log(getContatos("Bernardo Xavier Ribeiro"))
+
+
+module.exports = {
+  getFiltroAccount,
+  getContatos,
+}
