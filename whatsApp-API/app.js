@@ -1,6 +1,5 @@
 /********************************************************
  * "Mini" Projeto Integrado!
- * 
  * Objetivo: Criar uma API para o projeto do Whatsapp que 
    a equipe de Front-End já disponibilizou
  * Data: 17/03/2023
@@ -33,6 +32,7 @@ app.use((request, response, next) => {
 //ENDPOINT getContatos
 app.get('/v1/senai/contato/:nome', cors(), async function(request, response, next){
 
+    //let nomeContato = request.query.nome;
     let nomeContato = request.params.nome;
     let statusCode;
     let conversasContato = {};

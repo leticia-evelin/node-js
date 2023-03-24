@@ -605,12 +605,9 @@ const getFiltroAccount = function(contato) {
 
       if (obj.account == contato) {
         dono.push(obj)
-          //console.log(dono);
-          //return dono;
 
           for (let j = 0; j < obj.contacts.length; j++) {
             const contact = obj.contacts[j];
-            // console.log(contact)
             return contact
           }
        }
@@ -633,16 +630,16 @@ const getContatos = function($nome) {
         status = true
         usuario.contacts.forEach(function (contatos) {
             const contatosJSON = {
-                name: contatos.name,
-                description: contatos.description,
-                image: contatos.image,
+              name: contatos.name,
+              description: contatos.description,
+              image: contatos.image,
             }
             const mensagens = []
             contatos.messages.forEach(function (conteudoMensagens) {
                 const conversas = {
-                    sender: conteudoMensagens.sender,
-                    content: conteudoMensagens.content,
-                    timestamp: conteudoMensagens.time
+                  sender: conteudoMensagens.sender,
+                  content: conteudoMensagens.content,
+                  timestamp: conteudoMensagens.time
                 }
                 mensagens.push(conversas)
             });
@@ -656,8 +653,7 @@ listContatosJSON.contatos = contatosDoUsuario
 
   if(status){
     return listContatosJSON
-    //return contatosDoUsuario
-  }else{
+  } else {
     return status
   }
 }
