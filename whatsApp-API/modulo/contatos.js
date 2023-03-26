@@ -580,45 +580,8 @@ const contatos = { "whats-users" :
                         }
 
 
-
-
-const getNomeUsuario = function(){
-
-  let arrayContatos = [];
-  let listContatosJSON = {};
-
-  contatos['whats-users'].forEach(function(contatos){
-    const nomesUsuario = {}
-    nomesUsuario.nome = contatos.account;
-    nomesUsuario.nickname = contatos.nickname;
-    arrayContatos.push(nomesUsuario)
-  });
-  listContatosJSON.usuario = arrayContatos;
-  return listContatosJSON
-}
-
-const getFiltroAccount = function(contato) {
-  const dono = []
-
-    for (let i = 0; i < contatos["whats-users"].length; i++) {
-      const obj = contatos["whats-users"][i];
-
-      if (obj.account == contato) {
-        dono.push(obj)
-
-          for (let j = 0; j < obj.contacts.length; j++) {
-            const contact = obj.contacts[j];
-            return contact
-          }
-       }
-    }
-
-
-   return null;
-
-}
-//console.log(getFiltroAccount("Bernardo Xavier Ribeiro"))
-
+                        
+// getContatos por nome                        
 const getContatos = function($nome) {
   const usuarioPrincipal = $nome;
   const listContatosJSON = {};
@@ -661,7 +624,26 @@ listContatosJSON.contatos = contatosDoUsuario
 //console.log(getContatos("Bernardo Xavier Ribeiro"))
 
 
+// getUsuario por id 
+const getUsuarios = function(id){
+  let listContatosJSON = {};
+  let status = false;
+
+  if(contatos["whats-users"][id] != undefined) {
+    const contatosJSON = contatos["whats-users"][id].contacts
+    listContatosJSON = {contatos : contatosJSON}
+    status = true;
+  }
+
+  if(status){
+    return listContatosJSON
+  } else {
+    return false;
+  }
+}
+//console.log(getUsuarios(1));
+
 module.exports = {
-  getFiltroAccount,
   getContatos,
+  getUsuarios
 }

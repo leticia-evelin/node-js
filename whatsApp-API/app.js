@@ -29,7 +29,7 @@ app.use((request, response, next) => {
   next();
 });
 
-//ENDPOINT getContatos
+//ENDPOINT getContatos por NOME
 app.get('/v1/senai/contato/:nome', cors(), async function(request, response, next){
 
     //let nomeContato = request.query.nome;
@@ -57,29 +57,29 @@ app.get('/v1/senai/contato/:nome', cors(), async function(request, response, nex
   response.json(conversasContato);
 });
 
-//ENDPOINT getFiltroAccount (lista apenas mensagem de 1 contato)
-app.get('/v2/senai/contato/:nome', cors(), async function(request, response, next){
+//ENDPOINT getUsuarios por ID
+app.get('/v2/senai/contato/:id', cors(), async function(request, response, next){
 
-  let nomeContato = request.params.nome;
-  let statusCode;
-  let conversasContato = {};
+ let idUsuario = request.params.id;
+ let statusCode;
+ let conversasContato = {};
 
-  if(nomeContato == '' || nomeContato == undefined || !isNaN(nomeContato)){
-    statusCode = 400;
-    conversasContato.message = "Não foi possível processar a requisição :/";
+ if(idUsuario == '' || idUsuario == undefined || isNaN(idUsuario) || idUsuario.length != 1){
+  statusCode = 400;
+  conversasContato.message = "Não é possível processar a requisição, confira se o id digitado atende a quantidade de caracteres!";
   } else {
-    let contato = contatos.getFiltroAccount(nomeContato);
+    let contato = contatos.getUsuarios(idUsuario)
 
-    if(contato){
-      statusCode = 200; //conversa não encontrada
+    if (contato) {
+      statusCode = 200;
       conversasContato = contato;
     } else {
-      statusCode = 404; //conversa não encontrada
+      statusCode = 404;
     }
-  }
+ }
+ response.status(statusCode);
+ response.json(conversasContato);
 
-  response.status(statusCode);
-  response.json(conversasContato);
 });
 
 
