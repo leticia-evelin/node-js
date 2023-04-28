@@ -5,9 +5,35 @@
  * Versão: 1.0
  **************************************************************/
 
-//função para receber os dados do app e enviar para o model para inserir novo item
-const inserirAluno = function(dadosAluno){
 
+ //Importe do arquivo de acesso ao banco de dados
+ var alunoDAO = require('../model/DAO/alunoDAO.js')
+ 
+
+//função para receber os dados do app e enviar para o model para inserir novo item
+const inserirAluno = async function(dadosAluno){
+    //Import do arquivo global de configurações do projeto
+    let message = require('./modulo/config.js')
+
+    if(    
+        dadosAluno.nome            == '' || dadosAluno.nome            == undefined || dadosAluno.nome.lenght            > 100 ||
+        dadosAluno.cpf             == '' || dadosAluno.cpf             == undefined || dadosAluno.cpf.lenght             > 18  ||
+        dadosAluno.rg              == '' || dadosAluno.rg              == undefined || dadosAluno.rg.lenght              > 15  ||
+        dadosAluno.data_nascimento == '' || dadosAluno.data_nascimento == undefined || dadosAluno.data_nascimento.lenght > 10  ||
+        dadosAluno.email           == '' || dadosAluno.email           == undefined || dadosAluno.email.lenght           > 255
+    ){
+       return message.ERROR_REQUIRED_DATA;
+
+    } else {
+
+        //Envia os dados para a model a ser inseridos no banco de dados
+       let status = await alunoDAO.insertAluno(dadosAluno);
+        console.log(status);
+       if(status)
+        return message.CREATED_ITEM;
+      else 
+        return message.ERROR_INTERNAL_SERVER;
+    }
 };
 
 //função para receber os dados do app e enviar para o model para atualizar um item existente
@@ -22,11 +48,8 @@ const deletarAluno = function(id){
 
 //função para retornar todos os itens da tabela recebidos do model
 const selecionarTodosAlunos = async function(){
-    //Importe do arquivo de acesso ao banco de dados
-    let alunoDAO = require('../model/DAO/alunoDAO.js')
-    console.log(alunoDAO);
 
-    //Solicita ao DAO todos osalunos do banco de dados
+    //Solicita ao DAO todos os alunos do banco de dados
     let dadosAluno = await alunoDAO.selectAllAluno();
 
     //Cira um objeto do tipo JSON
@@ -47,5 +70,6 @@ const buscarIdAluno = function(id){
 };
 
 module.exports = {
-    selecionarTodosAlunos
+    selecionarTodosAlunos,
+    inserirAluno
 }
