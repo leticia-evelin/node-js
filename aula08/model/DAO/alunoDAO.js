@@ -34,7 +34,7 @@ const insertAluno = async function(dadosAluno){
    
     //Executa o script SQL no banco de dados e recebemos o retorno se deu certo ou não
     let result = await prisma.$executeRawUnsafe(sql);
-    console.log(result)
+   
   
     if(result)
         return true;
@@ -43,14 +43,37 @@ const insertAluno = async function(dadosAluno){
 }
 
 //Atualizar um registro no banco de dados
-const updateAluno = function(dadosAluno){
+const updateAluno = async function(dadosAluno){
 
+    let sql = `update tbl_aluno set
+    nome = '${dadosAluno.nome}',
+    rg = '${dadosAluno.rg}',
+    cpf = '${dadosAluno.cpf}',
+    data_nascimento = '${dadosAluno.data_nascimento}',
+    email = '${dadosAluno.email}'
+    where id = ${dadosAluno.id}` //busca pelo id
+
+    //Executa o script no banco de dados
+    let result = await prisma.$executeRawUnsafe(sql);
+
+    if(result)
+        return true;
+    else
+        return false;
 }
 
 //Excluir um registro do banco de dados
-const deleteAluno = function(id){
+const deleteAluno = async function(idAluno){
 
+    let sql = `delete from tbl_aluno
+    where id = ${idAluno}
+    `
+    let result = await prisma.$executeRawUnsafe(sql)
 
+    if(result)
+        return true;
+    else 
+        return false;    
 }
 
 //Retorna todos registros do banco de dados
@@ -74,12 +97,13 @@ const selectAllAluno = async function(){
 }
 
 //Retorna um registro filtrado pelo id do banco de dados
-const selectByIdAluno = function(id){
-
+const selectByIdAluno = function(idAluno){
 }
 
 
 module.exports = {
     selectAllAluno,
-    insertAluno
+    insertAluno,
+    updateAluno,
+    deleteAluno
 }

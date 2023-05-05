@@ -52,6 +52,7 @@ app.use((request, response, next) => {
     //Import da controller do aluno
     var controllerAluno = require('./controller/controller_aluno.js');
 
+    var message = require('./controller/modulo/config.js')
 
     //EndPoint: Retorna todos os dados de alunos
     app.get('/v1/lion-school/aluno', cors(), async function(request, response){
@@ -74,36 +75,64 @@ app.use((request, response, next) => {
     //EndPoint: Retorna dados do aluno pelo id
     app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response){
 
-
     });
 
 
     //EndPoint: Inserir um novo aluno
     app.post('/v1/lion-school/aluno', cors(), bodyJSON, async function(request, response){
 
-        //Recebe os dados encaminhados no body da requisição
-        let dadosBody = request.body;
+        //chega como array
+        let contentType = request.headers['content-type'];
+         
+        if(String(contentType).toLowerCase() == 'application/json'){
 
-        //Envia os dados para a controller
-        let resultInsertDados = await controllerAluno.inserirAluno(dadosBody);
-        console.log(resultInsertDados);
-       //Retorna o status code e a message
-       response.status(resultInsertDados.status);
-       response.json(resultInsertDados);
+        
+
+            //Recebe os dados encaminhados no body da requisição
+            let dadosBody = request.body;
+
+            //Envia os dados para a controller
+            let resultInsertDados = await controllerAluno.inserirAluno(dadosBody);
+
+            //Retorna o status code e a message
+            response.status(resultInsertDados.status);
+            response.json(resultInsertDados);
+
+        } else {
+            response.status (message.ERROR_INVALID_CONTENT_TYPE.status);
+            response.json(message.ERROR_INVALID_CONTENT_TYPE)
+        }
 
     });
 
 
     //EndPoint: Atualiza um aluno pelo id
-    app.put('/v1/lion-school/aluno/:id', cors(), async function(request, response){
+    app.put('/v1/lion-school/aluno/:id', cors(), bodyJSON, async function(request, response){
+        //recebe os dados do body
+        let dadosBody = request.body;
+
+        //recebe o id do aluno
+        let idAluno = request.params.id;
+
+        //Encaminha os dados para serem atualizados
+        let resultUpdateDados = await controllerAluno.atualizarAluno(dadosBody, idAluno);
+
+        response.status(resultUpdateDados.status);
+        response.json(resultUpdateDados);
 
 
     });
 
 
     //EndPoint: Exclui um aluno pelo id
-    app.delete('/v1/lion-school/aluno/:id', cors(), async function(request, response){
+    app.delete('/v1/lion-school/aluno/:id', cors(),  async function(request, response){
 
+        let idAluno = request.params.id;
+
+        let resultDeleteDados = await controllerAluno.deletarAluno(idAluno);
+
+        response.status(resultDeleteDados.status);
+        response.json(resultDeleteDados);
 
     });
 
