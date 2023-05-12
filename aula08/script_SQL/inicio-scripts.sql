@@ -67,3 +67,18 @@ update tbl_aluno set email = 'jose@hotmail.com' where id = 1;
 #Exclui um registro da tabela (não esquecer do critério de busca - where)
 delete from tbl_aluno where id = 2;
 
+
+##ordenação de forma descrescente - somente 1 registro (o ultimo)
+##retorna o último registro inserido no banco de dados
+select * from tbl_aluno order by id desc limit 1;
+
+#retorna somente o ID
+select id from tbl_aluno order by id desc limit 1;
+
+#função que verifica a última insersão que aconteceu no BANCO DE DADOS
+# usar no mesmo momento que executar o insert
+select last_insert_id();
+
+
+--  na model
+select * from tbl_aluno where nome like '%variavel%'

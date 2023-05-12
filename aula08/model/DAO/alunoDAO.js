@@ -4,6 +4,8 @@
  * Autor: Letícia Evelin
  * Versão: 1.0
  **************************************************************/
+//model não cria mensagem!! apenas na controller
+
 
   //Import da biblioteca do prisma client (responsável por manipular dados do banco de dados)
   var {PrismaClient} = require('@prisma/client');
@@ -97,7 +99,50 @@ const selectAllAluno = async function(){
 }
 
 //Retorna um registro filtrado pelo id do banco de dados
-const selectByIdAluno = function(idAluno){
+ const selectByIdAluno = async function(id){
+
+    //Variável com o script sql para executar no banco de dados
+    let sql = `select * from tbl_aluno where id = ${id}`;
+  
+    //Executa no banco de dados o scriptSQL
+        //$queryRawUnsafe() é utilizado quando o scriptSQL está em uma variável
+        //$queryRaw() é utilizado quando o script direto no metodo(Ex:$queryRaw('select * from tbl_aluno'))
+        //rs = result set 
+    let rsAluno = await prisma.$queryRawUnsafe(sql);
+
+    //valida se o banco de dados retornou algum registro
+    if(rsAluno.length > 0){
+        return rsAluno;
+    } else {
+        return false;
+    }
+}
+
+
+const selectByNomeAluno = async function(nome){
+
+    let sql = `select * from tbl_aluno where nome like '%variavel%'`;
+
+    let rsAluno = await prisma.$queryRawUnsafe(sql);
+
+    if(rsAluno.length > 0){
+        return rsAluno;
+    } else {
+        return false;
+    }
+}
+
+const selectLastId = async function(){
+    // invertendo a tabela, trazendo só o último  
+    //script para retornar apenas o última registro inserido na tabela  
+    let sql = 'select * from tbl_aluno order by id desc limit 1';
+
+    let rsAluno = await prisma.$queryRawUnsafe(sql);
+
+    if(rsAluno.length > 0)
+        return rsAluno[0].id;
+    else
+        return false;    
 }
 
 
@@ -105,5 +150,8 @@ module.exports = {
     selectAllAluno,
     insertAluno,
     updateAluno,
-    deleteAluno
+    deleteAluno,
+    selectByIdAluno,
+    selectLastId,
+    selectByNomeAluno
 }

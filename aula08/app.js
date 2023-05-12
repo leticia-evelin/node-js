@@ -61,19 +61,34 @@ app.use((request, response, next) => {
         let dados = await controllerAluno.selecionarTodosAlunos();
 
         //Valida se existem registros para retornar na requisição
-        if(dados){
-            response.json(dados);
-            response.status(200);
-        } else {
-            response.json();        // DAR UMA OLHADA NOS RESPONSE
-            response.status(404);
-        }
+        response.status(dados.status)
+        response.json(dados)
+
+
+        // if(dados){
+        //     response.json(dados);
+        //     response.status(200);
+        // } else {
+        //     response.json();        // DAR UMA OLHADA NOS RESPONSE
+        //     response.status(404);
+        // }
 
     });
 
 
     //EndPoint: Retorna dados do aluno pelo id
     app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response){
+        
+        //recebe o ID enviado pela requisição
+        let idAluno = request.params.id
+
+        //Solicita a controller e retorna todos os alunos do banco de dados
+        let dados = await controllerAluno.buscarIdAluno(idAluno);
+
+        //Valida se existem registros para retornar na requisição
+        response.status(dados.status)
+        response.json(dados)
+
 
     });
 
@@ -135,6 +150,18 @@ app.use((request, response, next) => {
         response.json(resultDeleteDados);
 
     });
+
+
+    app.get('/v1/lion-school/aluno', cors(), async function(request, response){
+
+        let nomeAluno = request.query.nome;
+
+       let dados = await controllerAluno.buscarNomeAluno(nomeAluno);
+
+       response.status(dados.status)
+       response.json(dados)
+    });
+
 
 
     app.listen(8080, function(){
